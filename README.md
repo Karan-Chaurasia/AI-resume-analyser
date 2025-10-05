@@ -46,9 +46,11 @@ git clone https://github.com/yourusername/resume-analyzer.git
 cd resume-analyzer
 ```
 
-2. **Backend Setup**
+2. **Setup Virtual Environment**
 ```bash
-cd backend
+python -m venv venv
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
