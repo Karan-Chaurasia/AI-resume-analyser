@@ -33,6 +33,18 @@ npm start
 
 Access at: http://localhost:3000
 
+### Cloud Deployment
+
+**Backend (Render):**
+- Connect GitHub repo to Render
+- Uses `render.yaml` configuration
+- Auto-deploys on push
+
+**Frontend (Vercel):**
+- Connect GitHub repo to Vercel
+- Uses `vercel.json` configuration
+- Auto-deploys on push
+
 ## 📋 Requirements
 
 - Python 3.8+
