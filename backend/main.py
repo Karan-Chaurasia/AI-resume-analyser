@@ -777,6 +777,10 @@ def generate_suggestions_ai(text: str, language: str) -> list:
 async def root():
     return {"message": "AI-Powered Resume Analyser API"}
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "resume-analyzer-api"}
+
 @app.post("/api/analyse-resume")
 async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[str] = None):
     # Input validation
