@@ -3,11 +3,11 @@ ATS (Applicant Tracking System) AI Analyzer for precision resume matching
 """
 import re
 from typing import Dict, List, Tuple
-from ai_hr_analyzer import AIHRAnalyzer
+from ai_hr_analyser import AIHRAnalyser
 
-class ATSAnalyzer:
+class ATSAnalyser:
     def __init__(self):
-        self.hr_analyzer = AIHRAnalyzer()
+        self.hr_analyser = AIHRAnalyser()
         
         # ATS keyword database with weights
         self.ats_keywords = {
@@ -30,17 +30,17 @@ class ATSAnalyzer:
             }
         }
     
-    def analyze_ats_compatibility(self, resume_text: str, job_description: str = "") -> Dict:
+    def analyse_ats_compatibility(self, resume_text: str, job_description: str = "") -> Dict:
         """Comprehensive ATS analysis with AI precision"""
         
         # Extract resume data
-        skills = self.hr_analyzer._extract_skills_from_text(resume_text)
+        skills = self.hr_analyser._extract_skills_from_text(resume_text)
         
         # ATS keyword matching
         keyword_matches = self._match_ats_keywords(resume_text)
         
         # Format analysis
-        format_score = self._analyze_format(resume_text)
+        format_score = self._analyse_format(resume_text)
         
         # Readability score
         readability_score = self._calculate_readability(resume_text)
@@ -83,8 +83,8 @@ class ATSAnalyzer:
             'total_score': sum(scores.values())
         }
     
-    def _analyze_format(self, text: str) -> int:
-        """Analyze resume format for ATS compatibility"""
+    def _analyse_format(self, text: str) -> int:
+        """Analyse resume format for ATS compatibility"""
         score = 100
         
         # Check for problematic formatting

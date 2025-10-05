@@ -1,4 +1,4 @@
-# Quick Start - Resume Analyzer
+# Quick Start - Resume Analyser
 
 ## 🚀 One-Click Start (Windows)
 

@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-class AIAnalyzer:
+class AIAnalyser:
     def __init__(self):
         self.skill_categories = {
             'programming': ['python', 'java', 'javascript', 'c++', 'c#', 'go', 'rust', 'kotlin', 'swift'],
@@ -16,16 +16,16 @@ class AIAnalyzer:
             'devops': ['git', 'jenkins', 'ci/cd', 'linux', 'bash', 'terraform']
         }
     
-    def analyze(self, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
+    def analyse(self, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
         skills = parsed_data.get('skills', [])
         projects = parsed_data.get('projects', [])
         experience = parsed_data.get('experience', [])
         
-        # Analyze skill distribution
-        skill_analysis = self._analyze_skills(skills)
+        # Analyse skill distribution
+        skill_analysis = self._analyse_skills(skills)
         
-        # Analyze projects
-        project_analysis = self._analyze_projects(projects)
+        # Analyse projects
+        project_analysis = self._analyse_projects(projects)
         
         # Calculate compatibility score
         compatibility_score = self._calculate_compatibility_score(skills, projects, experience)
@@ -42,7 +42,7 @@ class AIAnalyzer:
             'weaknesses': self._identify_weaknesses(skill_analysis)
         }
     
-    def _analyze_skills(self, skills: List[str]) -> Dict[str, Any]:
+    def _analyse_skills(self, skills: List[str]) -> Dict[str, Any]:
         categorized_skills = {}
         skill_count = 0
         
@@ -62,7 +62,7 @@ class AIAnalyzer:
             'diversity_score': len(categorized_skills) * 10  # Simple diversity metric
         }
     
-    def _analyze_projects(self, projects: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def _analyse_projects(self, projects: List[Dict[str, Any]]) -> Dict[str, Any]:
         if not projects:
             return {'project_count': 0, 'technology_diversity': 0, 'complexity_score': 0}
         

@@ -1,14 +1,14 @@
-# AI Resume Analyzer
+# AI Resume Analyser
 
 🚀 **AI-Powered Resume Analysis with ATS Integration**
 
-Comprehensive resume analyzer with multilingual support, job matching, and ATS compatibility scoring.
+Comprehensive resume analyser with multilingual support, job matching, and ATS compatibility scoring.
 
 ## ✨ Features
 
 - **AI-Powered Analysis**: Advanced skill extraction and job matching
 - **ATS Integration**: Applicant Tracking System compatibility scoring
-- **Multilingual Support**: Analyzes resumes in 21+ languages
+- **Multilingual Support**: Analyses resumes in 21+ languages
 - **Contact Detection**: Accurate LinkedIn/GitHub link extraction
 - **Project Analysis**: Detailed project and technology extraction
 - **Improvement Suggestions**: Personalized recommendations
@@ -73,16 +73,16 @@ cd frontend && npm start
 
 ## 🌐 Live Demo
 
-Try it live: [Resume Analyzer Demo](https://your-deployed-url.com)
+Try it live: [Resume Analyser Demo](https://your-deployed-url.com)
 
 ## 📖 API Documentation
 
-### Analyze Resume
+### Analyse Resume
 ```bash
-POST /api/analyze-resume
+POST /api/analyse-resume
 Content-Type: multipart/form-data
 
-curl -X POST -F "file=@resume.pdf" http://localhost:8000/api/analyze-resume
+curl -X POST -F "file=@resume.pdf" http://localhost:8000/api/analyse-resume
 ```
 
 ### Response Format
@@ -110,7 +110,7 @@ curl -X POST -F "file=@resume.pdf" http://localhost:8000/api/analyze-resume
 
 - **Backend**: FastAPI, Python, AI/ML
 - **Frontend**: React, TypeScript
-- **AI**: Custom HR analyzer with 200+ skill database
+- **AI**: Custom HR analyser with 200+ skill database
 - **ATS**: Integrated compatibility scoring
 - **Languages**: Supports 21+ languages
 
@@ -156,8 +156,8 @@ vercel --prod
 
 ### Docker
 ```bash
-docker build -t resume-analyzer .
-docker run -p 3000:3000 resume-analyzer
+docker build -t resume-analyser .
+docker run -p 3000:3000 resume-analyser
 ```
 
 ## 🤝 Contributing
@@ -174,13 +174,13 @@ MIT License - see [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- 📧 Email: support@resumeanalyzer.com
-- 💬 Issues: [GitHub Issues](https://github.com/yourusername/resume-analyzer/issues)
-- 📖 Docs: [Documentation](https://docs.resumeanalyzer.com)
+- 📧 Email: support@resumeanalyser.com
+- 💬 Issues: [GitHub Issues](https://github.com/yourusername/resume-analyser/issues)
+- 📖 Docs: [Documentation](https://docs.resumeanalyser.com)
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/resume-analyzer&type=Date)](https://star-history.com/#yourusername/resume-analyzer&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/resume-analyser&type=Date)](https://star-history.com/#yourusername/resume-analyser&Date)
 
 ---
 

@@ -9,14 +9,14 @@ from langdetect import detect
 import io
 import os
 from translator import translate_text, translate_to_english, TRANSLATIONS
-from ai_hr_analyzer import AIHRAnalyzer
-from ats_analyzer import ATSAnalyzer
+from ai_hr_analyser import AIHRAnalyser
+from ats_analyser import ATSAnalyser
 
 app = FastAPI(title="Resume Analyzer API", version="1.0.0")
 
-# Cache analyzer instances for better performance
-hr_analyzer_instance = AIHRAnalyzer()
-ats_analyzer_instance = ATSAnalyzer()
+# Cache analyser instances for better performance
+hr_analyser_instance = AIHRAnalyser()
+ats_analyser_instance = ATSAnalyser()
 
 app.add_middleware(
     CORSMiddleware,
@@ -47,7 +47,7 @@ def extract_text(content: bytes, filename: str) -> str:
     
     return text.strip() if text.strip() else "No text found"
 
-def ai_analyze_resume(resume_text: str, language: str = "en") -> dict:
+def ai_analyse_resume(resume_text: str, language: str = "en") -> dict:
     """AI-powered comprehensive resume analysis"""
     
     analysis = {
@@ -57,8 +57,8 @@ def ai_analyze_resume(resume_text: str, language: str = "en") -> dict:
         "experience": extract_experience_ai(resume_text, language),
         "projects": extract_projects_ai(resume_text, language),
         "education": extract_education_ai(resume_text, language),
-        "strengths": analyze_strengths_ai(resume_text, language),
-        "weaknesses": analyze_weaknesses_ai(resume_text, language),
+        "strengths": analyse_strengths_ai(resume_text, language),
+        "weaknesses": analyse_weaknesses_ai(resume_text, language),
         "suggestions": generate_suggestions_ai(resume_text, language)
     }
     
@@ -229,7 +229,7 @@ def extract_skills_ai(text: str, language: str) -> dict:
     """Multilingual AI skill extraction with language-specific patterns"""
     try:
         # Primary skill extraction using AI HR analyzer
-        skills = hr_analyzer_instance._extract_skills_from_text(text)
+        skills = hr_analyser_instance._extract_skills_from_text(text)
         
         # Enhanced multilingual skill patterns for better accuracy
         multilingual_skill_patterns = {
@@ -359,7 +359,7 @@ def extract_experience_ai(text: str, language: str) -> list:
             
             # Extract skills from this experience
             job_context = f"{title} {company}"
-            job_skills = hr_analyzer_instance._extract_skills_from_text(job_context)
+            job_skills = hr_analyser_instance._extract_skills_from_text(job_context)
             
             experiences.append({
                 "title": title.strip(),
@@ -385,7 +385,7 @@ def extract_experience_ai(text: str, language: str) -> list:
                         "company": "Company from resume",
                         "duration": match[0] if match[0] else "Not specified",
                         "description": "Experience extracted from resume",
-                        "skills_used": hr_analyzer_instance._extract_skills_from_text(' '.join(match))[:5]
+                        "skills_used": hr_analyser_instance._extract_skills_from_text(' '.join(match))[:5]
                     })
     
     return experiences or [{
@@ -393,7 +393,7 @@ def extract_experience_ai(text: str, language: str) -> list:
         "company": "Various Companies",
         "duration": "Multiple Years", 
         "description": "Professional experience found in resume",
-        "skills_used": hr_analyzer_instance._extract_skills_from_text(text)[:8]
+        "skills_used": hr_analyser_instance._extract_skills_from_text(text)[:8]
     }]
 
 def extract_projects_ai(text: str, language: str) -> list:
@@ -444,7 +444,7 @@ def extract_projects_ai(text: str, language: str) -> list:
             
             # Extract technologies from description and tech list
             combined_text = f"{title} {description} {tech_list}"
-            technologies = hr_analyzer_instance._extract_skills_from_text(combined_text)
+            technologies = hr_analyser_instance._extract_skills_from_text(combined_text)
             
             # Parse additional technologies from tech list
             tech_items = re.split(r'[,;|\n]', tech_list)
@@ -478,7 +478,7 @@ def extract_projects_ai(text: str, language: str) -> list:
                     tech_info = match[2] if len(match) > 2 else ""
                     
                     combined_text = f"{title} {description} {tech_info}"
-                    technologies = hr_analyzer_instance._extract_skills_from_text(combined_text)
+                    technologies = hr_analyser_instance._extract_skills_from_text(combined_text)
                     
                     projects.append({
                         "title": title.strip()[:150],
@@ -490,7 +490,7 @@ def extract_projects_ai(text: str, language: str) -> list:
     return projects[:10] if projects else [{
         "title": "Technical Projects", 
         "description": "Project experience found throughout resume", 
-        "technologies": hr_analyzer_instance._extract_skills_from_text(text)[:10],
+        "technologies": hr_analyser_instance._extract_skills_from_text(text)[:10],
         "tech_stack": "Various technologies"
     }]
 
@@ -521,7 +521,7 @@ def extract_education_ai(text: str, language: str) -> list:
     
     return education
 
-def analyze_strengths_ai(text: str, language: str) -> list:
+def analyse_strengths_ai(text: str, language: str) -> list:
     """Professional multilingual strength analysis"""
     skills_data = extract_skills_ai(text, language)
     strengths = []
@@ -567,7 +567,7 @@ def analyze_strengths_ai(text: str, language: str) -> list:
     
     return strengths or [templates["basic_foundation"]]
 
-def analyze_weaknesses_ai(text: str, language: str) -> list:
+def analyse_weaknesses_ai(text: str, language: str) -> list:
     """Professional multilingual weakness analysis"""
     skills_data = extract_skills_ai(text, language)
     weaknesses = []
@@ -777,8 +777,8 @@ def generate_suggestions_ai(text: str, language: str) -> list:
 async def root():
     return {"message": "AI-Powered Resume Analyzer API"}
 
-@app.post("/api/analyze-resume")
-async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[str] = None):
+@app.post("/api/analyse-resume")
+async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[str] = None):
     # Input validation
     if not file.filename or not file.filename.lower().endswith(('.pdf', '.docx')):
         raise HTTPException(status_code=400, detail="Only PDF and DOCX files supported")
@@ -811,13 +811,13 @@ async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[st
         
         # AI HR-powered comprehensive analysis
         try:
-            comprehensive_skills = hr_analyzer_instance.extract_all_skills_comprehensive(text)
-            job_matches = hr_analyzer_instance.analyze_job_fit_like_hr(text, comprehensive_skills)
+            comprehensive_skills = hr_analyser_instance.extract_all_skills_comprehensive(text)
+            job_matches = hr_analyser_instance.analyse_job_fit_like_hr(text, comprehensive_skills)
         except (AttributeError, KeyError, TypeError, ValueError):
             # If AI HR analyzer fails, create basic fallback
             try:
                 # Try direct skill extraction from text
-                fallback_skills = hr_analyzer_instance._extract_skills_from_text(text)
+                fallback_skills = hr_analyser_instance._extract_skills_from_text(text)
                 comprehensive_skills = {"all_skills": fallback_skills, "skills_section": [], "project_skills": [], "total_count": len(fallback_skills)}
                 # Create basic job matches
                 job_matches = [{"job_title": "Software Developer", "match_percentage": 50, "matching_skills": fallback_skills[:5], "missing_skills": ["Python", "JavaScript", "SQL"]}]
@@ -827,8 +827,8 @@ async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[st
         
         # ATS Analysis with AI precision
         try:
-            ats_analysis = ats_analyzer_instance.analyze_ats_compatibility(text)
-            ats_issues = ats_analyzer_instance.scan_for_ats_issues(text)
+            ats_analysis = ats_analyser_instance.analyse_ats_compatibility(text)
+            ats_issues = ats_analyser_instance.scan_for_ats_issues(text)
         except Exception:
             # Fallback ATS analysis
             ats_analysis = {
@@ -843,8 +843,8 @@ async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[st
             }
             ats_issues = {'issues_found': 0, 'issues': [], 'ats_friendly': True}
         
-        # Use AI HR analyzer for all skill detection
-        analysis = ai_analyze_resume(text, language)
+        # Use AI HR analyser for all skill detection
+        analysis = ai_analyse_resume(text, language)
         
         # Extract skills from all sections for comprehensive analysis
         all_extracted_skills = set()
@@ -855,12 +855,12 @@ async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[st
         
         # Extract skills from projects section
         project_text = "\n".join([p["title"] + " " + p["description"] for p in analysis["projects"]])
-        project_skills = hr_analyzer_instance._extract_skills_from_text(project_text)
+        project_skills = hr_analyser_instance._extract_skills_from_text(project_text)
         all_extracted_skills.update(project_skills)
         
         # Extract skills from experience section
         experience_text = "\n".join([e["title"] + " " + e["description"] for e in analysis["experience"]])
-        experience_skills = hr_analyzer_instance._extract_skills_from_text(experience_text)
+        experience_skills = hr_analyser_instance._extract_skills_from_text(experience_text)
         all_extracted_skills.update(experience_skills)
         
         # Extract skills from achievements/awards section
@@ -877,7 +877,7 @@ async def analyze_resume(file: UploadFile = File(...), translate_to: Optional[st
                 achievement_text += str(match) + " "
         
         if achievement_text:
-            achievement_skills = hr_analyzer_instance._extract_skills_from_text(achievement_text)
+            achievement_skills = hr_analyser_instance._extract_skills_from_text(achievement_text)
             all_extracted_skills.update(achievement_skills)
         
         # Update analysis with comprehensive skills

@@ -1,7 +1,7 @@
 import re
 from typing import Dict, List, Any
 
-class AIHRAnalyzer:
+class AIHRAnalyser:
     def __init__(self):
         self.job_profiles = {
             # Software Engineering
@@ -398,8 +398,8 @@ class AIHRAnalyzer:
         
         return cleaned_skills
     
-    def analyze_job_fit_like_hr(self, text: str, extracted_skills: Dict[str, List[str]]) -> List[Dict[str, Any]]:
-        """Analyze job fit like an experienced HR professional"""
+    def analyse_job_fit_like_hr(self, text: str, extracted_skills: Dict[str, List[str]]) -> List[Dict[str, Any]]:
+        """Analyse job fit like an experienced HR professional"""
         
         all_skills = [skill.lower() for skill in extracted_skills["all_skills"]]
         skills_section_skills = [skill.lower() for skill in extracted_skills["skills_section"]]
@@ -415,7 +415,7 @@ class AIHRAnalyzer:
             tools_matches = self._count_skill_matches(all_skills, profile["tools_skills"])
             
             # Project relevance analysis
-            project_relevance = self._analyze_project_relevance(text, profile["project_indicators"])
+            project_relevance = self._analyse_project_relevance(text, profile["project_indicators"])
             
             # Calculate weighted scores
             skill_score = (core_matches * 3 + framework_matches * 2 + database_matches * 2 + tools_matches * 1) / 8
@@ -494,8 +494,8 @@ class AIHRAnalyzer:
                 return True
         return False
     
-    def _analyze_project_relevance(self, text: str, indicators: List[str]) -> int:
-        """Analyze how relevant projects are to the job"""
+    def _analyse_project_relevance(self, text: str, indicators: List[str]) -> int:
+        """Analyse how relevant projects are to the job"""
         relevance_score = 0
         for indicator in indicators:
             if re.search(r'\b' + indicator + r'\b', text, re.IGNORECASE):

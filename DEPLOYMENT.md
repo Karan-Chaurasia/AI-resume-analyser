@@ -33,7 +33,7 @@ npm install -g heroku
 
 # Login and create app
 heroku login
-heroku create your-resume-analyzer
+heroku create your-resume-analyser
 
 # Deploy
 git push heroku main
@@ -57,8 +57,8 @@ sudo apt update
 sudo apt install python3 python3-pip nodejs npm
 
 # Clone and setup
-git clone https://github.com/yourusername/resume-analyzer.git
-cd resume-analyzer
+git clone https://github.com/yourusername/resume-analyser.git
+cd resume-analyser
 
 # Backend
 cd backend
