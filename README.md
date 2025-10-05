@@ -15,32 +15,28 @@ Comprehensive resume analyser with multilingual support, job matching, and ATS c
 
 ## 🚀 Quick Start
 
-### Option 1: Docker (Recommended)
-```bash
-git clone https://github.com/yourusername/resume-analyzer.git
-cd resume-analyzer
-docker-compose up
-```
-Access at: http://localhost:3000
+### Local Development
 
-### Option 2: Manual Setup
+**Backend:**
 ```bash
-# Backend
 cd backend
 pip install -r requirements.txt
 python main.py
+```
 
-# Frontend (new terminal)
+**Frontend:**
+```bash
 cd frontend
 npm install
 npm start
 ```
 
+Access at: http://localhost:3000
+
 ## 📋 Requirements
 
 - Python 3.8+
 - Node.js 16+
-- Docker (optional)
 
 ## 🔧 Installation
 
@@ -71,10 +67,6 @@ cd backend && python main.py
 cd frontend && npm start
 ```
 
-## 🌐 Live Demo
-
-Try it live: [Resume Analyser Demo](https://your-deployed-url.com)
-
 ## 📖 API Documentation
 
 ### Analyse Resume
@@ -83,27 +75,6 @@ POST /api/analyse-resume
 Content-Type: multipart/form-data
 
 curl -X POST -F "file=@resume.pdf" http://localhost:8000/api/analyse-resume
-```
-
-### Response Format
-```json
-{
-  "extracted_data": {
-    "name": "John Doe",
-    "skills": ["Python", "React", "AWS"],
-    "contact_info": {
-      "email": "john@example.com",
-      "linkedin": "https://linkedin.com/in/johndoe"
-    }
-  },
-  "ats_analysis": {
-    "ats_score": 85,
-    "ats_friendly": true,
-    "compatibility_rating": "Excellent"
-  },
-  "job_matches": [...],
-  "suggestions": [...]
-}
 ```
 
 ## 🛠️ Tech Stack
@@ -128,36 +99,7 @@ resume-analyzer/
 │   ├── src/                 # React application
 │   ├── package.json         # Node dependencies
 │   └── public/              # Static files
-├── docker-compose.yml       # Docker setup
 └── README.md               # This file
-```
-
-## 🚀 Deployment Options
-
-### Heroku
-```bash
-# Install Heroku CLI
-heroku create your-app-name
-git push heroku main
-```
-
-### Vercel (Frontend)
-```bash
-# Install Vercel CLI
-cd frontend
-vercel --prod
-```
-
-### Railway
-```bash
-# Connect GitHub repo to Railway
-# Auto-deploys on push
-```
-
-### Docker
-```bash
-docker build -t resume-analyser .
-docker run -p 3000:3000 resume-analyser
 ```
 
 ## 🤝 Contributing
@@ -171,16 +113,6 @@ docker run -p 3000:3000 resume-analyser
 ## 📝 License
 
 MIT License - see [LICENSE](LICENSE) file
-
-## 🆘 Support
-
-- 📧 Email: support@resumeanalyser.com
-- 💬 Issues: [GitHub Issues](https://github.com/yourusername/resume-analyser/issues)
-- 📖 Docs: [Documentation](https://docs.resumeanalyser.com)
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/resume-analyser&type=Date)](https://star-history.com/#yourusername/resume-analyser&Date)
 
 ---
 
