@@ -12,7 +12,7 @@ from translator import translate_text, translate_to_english, TRANSLATIONS
 from ai_hr_analyser import AIHRAnalyser
 from ats_analyser import ATSAnalyser
 
-app = FastAPI(title="Resume Analyzer API", version="1.0.0")
+app = FastAPI(title="Resume Analyser API", version="1.0.0")
 
 # Cache analyser instances for better performance
 hr_analyser_instance = AIHRAnalyser()
@@ -228,7 +228,7 @@ def extract_contact_ai(text: str) -> dict:
 def extract_skills_ai(text: str, language: str) -> dict:
     """Multilingual AI skill extraction with language-specific patterns"""
     try:
-        # Primary skill extraction using AI HR analyzer
+        # Primary skill extraction using AI HR analyser
         skills = hr_analyser_instance._extract_skills_from_text(text)
         
         # Enhanced multilingual skill patterns for better accuracy
@@ -775,7 +775,7 @@ def generate_suggestions_ai(text: str, language: str) -> list:
 
 @app.get("/")
 async def root():
-    return {"message": "AI-Powered Resume Analyzer API"}
+    return {"message": "AI-Powered Resume Analyser API"}
 
 @app.post("/api/analyse-resume")
 async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[str] = None):
@@ -814,7 +814,7 @@ async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[st
             comprehensive_skills = hr_analyser_instance.extract_all_skills_comprehensive(text)
             job_matches = hr_analyser_instance.analyse_job_fit_like_hr(text, comprehensive_skills)
         except (AttributeError, KeyError, TypeError, ValueError):
-            # If AI HR analyzer fails, create basic fallback
+            # If AI HR analyser fails, create basic fallback
             try:
                 # Try direct skill extraction from text
                 fallback_skills = hr_analyser_instance._extract_skills_from_text(text)
@@ -849,7 +849,7 @@ async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[st
         # Extract skills from all sections for comprehensive analysis
         all_extracted_skills = set()
         
-        # Get skills from AI HR analyzer
+        # Get skills from AI HR analyser
         if comprehensive_skills["all_skills"]:
             all_extracted_skills.update(comprehensive_skills["all_skills"])
         
@@ -1126,7 +1126,7 @@ async def analyse_resume(file: UploadFile = File(...), translate_to: Optional[st
     except HTTPException:
         raise
     except Exception:
-        raise HTTPException(status_code=500, detail="Error processing file: Unable to analyze resume")
+        raise HTTPException(status_code=500, detail="Error processing file: Unable to analyse resume")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
